@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from collections import MutableSet
+from collections.abc import MutableSet
 import types
 import weakref
 
