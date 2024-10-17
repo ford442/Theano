@@ -854,7 +854,7 @@ class ScalarOp(Op):
     def __init__(self, output_types_preference=None, name=None):
         self.name = name
         if output_types_preference is not None:
-            if not isinstance(output_types_preference, collections.Callable):
+            if not isinstance(output_types_preference, collections.abc.Callable):
                 raise TypeError(
                     "Expected a callable for the 'output_types_preference' argument to %s. (got: %s)" %
                     (self.__class__, output_types_preference))
