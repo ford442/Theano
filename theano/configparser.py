@@ -73,7 +73,7 @@ def config_files_from_theanorc():
 
 
 config_files = config_files_from_theanorc()
-theano_cfg = (ConfigParser.ConfigParser if PY3
+theano_cfg = (ConfigParser.SafeConfigParser if PY3
               else ConfigParser.ConfigParser)(
     {'USER': os.getenv("USER", os.path.split(os.path.expanduser('~'))[-1]),
      'LSCRATCH': os.getenv("LSCRATCH", ""),
