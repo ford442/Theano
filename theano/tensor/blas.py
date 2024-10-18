@@ -131,11 +131,6 @@ import os
 import time
 
 import numpy
-import numpy.distutils
-try:
-    import numpy.distutils.__config__
-except ImportError:
-    pass
 
 from six import iteritems
 from six.moves import reduce, xrange
