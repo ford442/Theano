@@ -18,7 +18,7 @@ import time
 import platform
 import warnings
 
-import numpy.distutils  # TODO: TensorType should handle this
+import numpy
 
 import theano
 from theano.compat import PY3, decode, decode_iter
@@ -1547,7 +1547,7 @@ def get_gcc_shared_library_arg():
 
 
 def std_include_dirs():
-    numpy_inc_dirs = numpy.distutils.misc_util.get_numpy_include_dirs()
+    numpy_inc_dirs = numpy.get_include()
     py_inc = './pyodide/include'
     py_plat_spec_inc = './pyodide/include'
     python_inc_dirs = ([py_inc] if py_inc == py_plat_spec_inc
