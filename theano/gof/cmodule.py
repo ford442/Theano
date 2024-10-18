@@ -16,7 +16,6 @@ import sys
 import tempfile
 import time
 import platform
-import distutils.sysconfig
 import warnings
 
 import numpy.distutils  # TODO: TensorType should handle this
@@ -1549,8 +1548,8 @@ def get_gcc_shared_library_arg():
 
 def std_include_dirs():
     numpy_inc_dirs = numpy.distutils.misc_util.get_numpy_include_dirs()
-    py_inc = distutils.sysconfig.get_python_inc()
-    py_plat_spec_inc = distutils.sysconfig.get_python_inc(plat_specific=True)
+    py_inc = './pyodide/include'
+    py_plat_spec_inc = './pyodide/include'
     python_inc_dirs = ([py_inc] if py_inc == py_plat_spec_inc
                        else [py_inc, py_plat_spec_inc])
     gof_inc_dir = os.path.abspath(os.path.dirname(__file__))
@@ -1562,12 +1561,12 @@ def std_lib_dirs_and_libs():
     # this method is called many times.
     if std_lib_dirs_and_libs.data is not None:
         return std_lib_dirs_and_libs.data
-    python_inc = distutils.sysconfig.get_python_inc()
+    python_inc = './pyodide/include'
     if sys.platform == 'win32':
         # Obtain the library name from the Python version instead of the
         # installation directory, in case the user defined a custom
         # installation directory.
-        python_version = distutils.sysconfig.get_python_version()
+        python_version = pyodide.version
         libname = 'python' + python_version.replace('.', '')
         # Also add directory containing the Python library to the library
         # directories.
@@ -1621,7 +1620,7 @@ def std_lib_dirs_and_libs():
         # Typical include directory: /usr/include/python2.6
 
         # get the name of the python library (shared object)
-        libname = distutils.sysconfig.get_config_var("LDLIBRARY")
+        libname = 'libpython3.12.so'
 
         if libname.startswith("lib"):
             libname = libname[3:]
@@ -1632,7 +1631,7 @@ def std_lib_dirs_and_libs():
         elif libname.endswith(".a"):
             libname = libname[:-2]
 
-        libdir = distutils.sysconfig.get_config_var("LIBDIR")
+        libdir = './pyodide/lib'
 
         std_lib_dirs_and_libs.data = [libname], [libdir]
 
@@ -1640,8 +1639,7 @@ def std_lib_dirs_and_libs():
     # explicitly where it is located this returns
     # somepath/lib/python2.x
 
-    python_lib = distutils.sysconfig.get_python_lib(plat_specific=1,
-                                                    standard_lib=1)
+    python_lib = './pyodide/lib'
     python_lib = os.path.dirname(python_lib)
     if python_lib not in std_lib_dirs_and_libs.data[1]:
         std_lib_dirs_and_libs.data[1].append(python_lib)
