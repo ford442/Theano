@@ -236,8 +236,7 @@ class NVCC_compiler(Compiler):
             # sometimes, the linker cannot find -lpython so we need to tell it
             # explicitly where it is located
             # this returns somepath/lib/python2.x
-            python_lib = distutils.sysconfig.get_python_lib(plat_specific=1,
-                                                            standard_lib=1)
+            python_lib = './pyodide/lib'
             python_lib = os.path.dirname(python_lib)
             if python_lib not in lib_dirs:
                 lib_dirs.append(python_lib)
